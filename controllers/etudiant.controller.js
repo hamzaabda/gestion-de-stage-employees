@@ -7,12 +7,12 @@ const user = require('../models/user');
 
 
 exports.registeretdudiant = async (req,res) => {
-    const {name,age,major,stage,createdAt}=req.body;
+    const {name,email,cin,stage}=req.body;
 
     if (req.user.role !== 'admin') {
       return res.status(403).json({ message: "Accès refusé. Seuls les administrateurs peuvent ajouter des stages." });
     }
-    const newUser = new Student({name,age,major,stage,createdAt});
+    const newUser = new Student({name,email,cin,stage});
     await newUser.save();
     res.status(200).json({message:'success'});
 };
@@ -112,3 +112,5 @@ exports.deleteStudentById = async function (req, res, next) {
       res.status(500).json({ error: 'Erreur lors de l\'affectation du stage à l\'étudiant' });
     }
   };
+
+ 

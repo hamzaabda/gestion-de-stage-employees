@@ -23,6 +23,9 @@ router.post('/updateStudentById/:id', authenticateJWT,manageetudiant.updateStude
 
 router.post ('/assignStage/:studentId/stage', manageetudiant.assignStage)
 
+
+
+
 module.exports = router;
 
 
