@@ -3,6 +3,7 @@ const Stage = require('../models/stage.model');
 const mongoose = require('mongoose');
 const {SECRET_KEY}=require('./../config');
 const user = require('../models/user');
+const nodemailer = require('nodemailer');
 
 
 
@@ -86,6 +87,10 @@ exports.deleteStudentById = async function (req, res, next) {
     }
   };
   
+  
+
+
+
   exports.assignStage = async (req, res) => {
     const { studentId } = req.params;
     const { name, description, startDate, endDate } = req.body;
@@ -106,11 +111,33 @@ exports.deleteStudentById = async function (req, res, next) {
   
       student.stage = stage._id;
       await student.save();
+
+
+  
+      // Envoyer un e-mail à l'étudiant pour l'informer de l'affectation du stage
+      const transporter = nodemailer.createTransport({
+        host: "smtp-mail.outlook.com",
+        port: 587,
+        secure: false,
+        auth: {
+          user: 'hamzaabda09@outlook.com', // Votre adresse e-mail
+          pass: 'Azerty123456+', // Votre mot de passe
+        },
+      });
+  
+      
+      const mailOptions = {
+        from: 'hamzaabda09@outlook.com',
+        to: student.email, // L'adresse e-mail de l'étudiant
+        subject: 'Affectation du stage',
+        text: `Cher ${student.name},\n\nVous avez été affecté au stage "${stage.name}". Félicitations!\n\nDates du stage: ${stage.startDate} - ${stage.endDate}\n\nCordialement,\nVotre équipe de stages`
+      };
+  
+      await transporter.sendMail(mailOptions);
   
       res.json(student);
     } catch (error) {
       res.status(500).json({ error: 'Erreur lors de l\'affectation du stage à l\'étudiant' });
     }
   };
-
- 
+  
