@@ -111,10 +111,11 @@ exports.deleteStudentById = async function (req, res, next) {
   
       student.stage = stage._id;
       await student.save();
-
-
   
-      // Envoyer un e-mail à l'étudiant pour l'informer de l'affectation du stage
+      // Générer un lien unique pour le dépôt du CV en ligne
+      const cvUploadLink = `http://votre-domaine.com/upload-cv/${studentId}`;
+  
+      // Envoyer un e-mail à l'étudiant pour l'informer de l'affectation du stage et inclure le lien de dépôt du CV en ligne
       const transporter = nodemailer.createTransport({
         host: "smtp-mail.outlook.com",
         port: 587,
@@ -125,12 +126,22 @@ exports.deleteStudentById = async function (req, res, next) {
         },
       });
   
-      
       const mailOptions = {
         from: 'hamzaabda09@outlook.com',
         to: student.email, // L'adresse e-mail de l'étudiant
-        subject: 'Affectation du stage',
-        text: `Cher ${student.name},\n\nVous avez été affecté au stage "${stage.name}". Félicitations!\n\nDates du stage: ${stage.startDate} - ${stage.endDate}\n\nCordialement,\nVotre équipe de stages`
+        subject: 'Affectation du stage et dépôt du CV en ligne',
+        text: `Cher ${student.name},
+
+        Vous avez été affecté au stage "${stage.name}". Félicitations!
+        
+        
+        
+      
+        
+        Cliquez sur ce lien pour passer un test et déposer votre CV :https://docs.google.com/forms/d/e/1FAIpQLSe1RQH8PwQWmaQa68Z-EDzeL3vU-OIiNIFP8PguR-Jj6bwITg/viewform?usp=sf_link
+        
+        Cordialement,
+        Votre équipe de stages`
       };
   
       await transporter.sendMail(mailOptions);
@@ -140,4 +151,5 @@ exports.deleteStudentById = async function (req, res, next) {
       res.status(500).json({ error: 'Erreur lors de l\'affectation du stage à l\'étudiant' });
     }
   };
+  
   
