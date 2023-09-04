@@ -1,38 +1,94 @@
-.App {
-  text-align: center;
+* {
+
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html , 
+body{
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.register {
+margin:10vh auto;
+width: 80vw;
+height: 80vh;
+border : 2px solid black;
+overflow:hidden;
+border-radius :20px;
+box-shadow: 0 0 5px rgba(190, 187, 187, .6);
+display: flex;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.registre-content{
+ 
+  background-size: cover;
+   width: 50%;
+   height: 100%;
+
+}
+.form-group {
+  width: 80%;
+  margin: 5px auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+.row {
+  width: 80%;
+  margin: 10px auto;
+  display: flex;
+  gap: 10px;
+}
+.register,login{
+
+  margin: 10vh auto;
+  width: 80vw;
+  height:80vh;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 0 5px rgba(190,187,187,0.6);
+  display: flex;
+  }
+  
+  .register-cover {
+  
+  background-size: cover;
+  width: 50%;
+  height: 100%
+  
+  }
+  
+  .register-content{
+    width: 50%;
+    text-align:center
+  }
+.form-group label {
+  margin: 5px 0;
+  text-align: left;
+  font-size: 1rem;
+}
+.input,textarea {
+  padding: 8px;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.btn {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+.signup {
+  background-color: black;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.signup:hover {
+  cursor: pointer;
+  background-color: rgb(45, 40, 40);
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
