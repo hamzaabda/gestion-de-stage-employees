@@ -35,11 +35,14 @@ const Login =()=>{
 
             toast.success('successfully created!')
 
+            
             setEmail   ('')
             setPassword('')
 
             navigate("/home")
-
+            
+           
+           
         
         }catch(err){
         console.log(err);

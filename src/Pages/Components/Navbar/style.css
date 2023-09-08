@@ -91,3 +91,20 @@ margin-right: 10px;
 width: 100%;
 
 }
+.notification-icon {
+    position: relative;
+  }
+  
+  .notification-bell {
+    animation: blink 1s infinite alternate;
+  }
+  
+  @keyframes blink {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0.5;
+    }
+  }
+  

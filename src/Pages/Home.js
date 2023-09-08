@@ -1,47 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Components/Navbar';
+import Sidebar from './Components/Sidebar';
 
-const Home= ()=>{
+const Home = () => {
+  const [connectedUser, setConnectedUser] = useState();
+  const navigate = useNavigate();
 
-const [connectedUser,setConnectedUser]=useState()
+  const getConnectedUserData = () => {
+    setConnectedUser(JSON.parse(localStorage.getItem("user_data")));
+  }
 
-const navigate =useNavigate();
+  useEffect(() => {
+    getConnectedUserData();
 
-const getConnectedUserData = ()=>{
+    if (localStorage.getItem("user_data") === null) {
+      navigate("/login");
+    }
+  }, []);
 
-
-setConnectedUser(JSON.parse(localStorage.getItem("user_data")))
-
-}
-
-useEffect(()=>{
-
-getConnectedUserData();
-
-
-if(localStorage.getItem("user_data")===null){
-
-
-navigate("/login");
-
-}
-},[]);
-
-
-
-return(
-
+  return (
     <>
-<Navbar/>    
-    <h1>Hello connectedUser</h1>
     
-    
+    {connectedUser && <h1>Hello {connectedUser.email}</h1>}
+      <Navbar />
+      <Sidebar />
     </>
-
-
-)
-
-
+  );
 }
+
 export default Home;
