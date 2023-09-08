@@ -11,8 +11,14 @@ const CPSRoutes = require('./routes/masterCPS.routes')
 const TRTRoutes = require('./routes/masterTRT.routes')
 const stageRoutes = require('./routes/stage.routes')
 const etudiantRoutes = require('./routes/etudiant.routes')
-const emploisRoutes = require('./routes/emplois.routes')
+const jobRoutes = require('./routes/job.routes')
+const applicationRoutes=require('./routes/applicationRoutes')
+
+
+
 var cors = require('cors')
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,9 +40,21 @@ app.use('/api/users', CPSRoutes);
 app.use('/api/users', TRTRoutes);
 app.use('/api/users', stageRoutes);
 app.use('/api/users', etudiantRoutes);
-app.use('/api/users', emploisRoutes);
+app.use('/api/users',jobRoutes);
+app.use('/api/users',applicationRoutes);
+
 
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+
+
+
+
+
+
+
+
+
 
 // app.listen(3300)
 mongoose.set('useFindAndModify', false);

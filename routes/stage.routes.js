@@ -34,7 +34,7 @@ router.put('/choisirStage/:stageId/choisir', stageController.choisirStage);
 
 
 router.post('/users',(req,res)=>{
-    res.send()
+    res.send("home page")
 })
 module.exports = router;
 
