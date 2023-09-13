@@ -1,95 +1,82 @@
-import React , {useState} from 'react';
+// Login.js
+import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import UserService from '../Services/UserService';
 
+const Login = () => {
+  const navigate = useNavigate();
 
-const Login =()=>{
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    const navigate= useNavigate();
+  const signin = async (e) => {
+    e.preventDefault();
+    console.log("form submitted");
+    console.log("form data", email, password);
 
-    const [email, setEmail] = useState('');
-  
-    const [password, setPassword] = useState('');
-  
-    const signin=async(e)=>{
-        e.preventDefault();
-        console.log("form submited");
-        console.log("form data", email,password);
-      
-         const data = {
-          
-         
-            email: email,
-            
-            password: password,
-        }
+    const data = {
+      email: email,
+      password: password,
+    };
 
-        try{
-            const response = await UserService.signin(data)
-            console.log("response===>",response);
+    try {
+      const response = await UserService.signin(data);
+      console.log("response===>", response);
 
-            localStorage.setItem('user_data', JSON.stringify(response.data.user))
-            localStorage.setItem('token',response.data.token)
+      localStorage.setItem('user_data', JSON.stringify(response.data.user));
+      localStorage.setItem('token', response.data.token);
 
+      toast.success('successfully created!');
 
-            toast.success('successfully created!')
+      setEmail('');
+      setPassword('');
 
-            
-            setEmail   ('')
-            setPassword('')
+      // Récupérez le rôle de l'utilisateur à partir des données stockées
+      const userRole = response.data.user.role;
 
-            navigate("/home")
-            
-           
-           
-        
-        }catch(err){
-        console.log(err);
-        toast.error('failed ');
-        }
-        
+      if (userRole === 'admin') {
+        // L'utilisateur est un administrateur, redirigez-le vers la page d'administration
+        navigate("/home");
+      } else if (userRole === 'etudiant') {
+        // L'utilisateur est un étudiant, redirigez-le vers la page d'étudiant
+        navigate("/homeetudiant");
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error('failed');
     }
+  };
 
-return (
+  return (
+    <div className='login'>
+      <Toaster />
 
-<div className='login'>
-    <Toaster/>
+      <div className='login-cover'></div>
 
-<div className='login-cover'>
+      <div className='login-content'></div>
 
-</div>
+      <div>
+        <h1>Space</h1>
+        <p> Space Application</p>
+      </div>
 
-<div  className='login-content'></div>
+      <div>
+        <form onSubmit={signin}>
+          <div className='form-group'>
+            <label> Email</label>
+            <input className='input' type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </div>
 
-<div>
-<h1>Space</h1>
-<p> Space Application</p>
-</div>
-
-
-<div>
-<form onSubmit={signin}>
-
-<div className='form-group'>
-        <label> Email</label>
-        <input className = 'input'type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
+          <div className='form-group'>
+            <label> Password</label>
+            <input className='input' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </div>
+          <button className='btn signup' type='submit'>Sign up</button>
+        </form>
+      </div>
     </div>
+  );
+};
 
-    <div className='form-group'>
-        <label> Password</label>
-        <input className = 'input'type="password"value={password} onChange={(e) => setPassword(e.target.value)}/>
-    </div>
-    <button className='btn signup' type='submit'>Sign up</button>
-</form>
-</div>
-
-
-
-
-</div>
-)
-
-
-}
 export default Login;

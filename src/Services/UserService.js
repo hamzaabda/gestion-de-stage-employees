@@ -28,6 +28,10 @@ UserService.stage = function (data) {
 };
 
 
+
+
+
+
 UserService.job = function (data) {
   const stageUrl = 'http://localhost:3300/api/users/registerjob';
   const headers = {
@@ -36,6 +40,7 @@ UserService.job = function (data) {
 
   return axios.post(stageUrl, data, { headers });
 };
+
 
 
 

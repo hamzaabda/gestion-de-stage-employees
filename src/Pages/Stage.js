@@ -41,8 +41,7 @@ const Stage = () => {
       setDescription('');
       setStartdate('');
       setEnddate('');
-
-      
+  
 
     } catch (err) {
       console.log(err);
